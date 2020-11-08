@@ -14,14 +14,14 @@ web_driver = webdriver.Chrome(path)
 # User input for year + race number
 year = input("Enter the year: ")
 web_driver.get(f"http://ergast.com/api/f1/{year}")
-
 info_row = len(web_driver.find_elements_by_xpath('//*[@id="content"]/div[1]/div/div[2]/table/tbody/tr')) - 2
-
 year_data = ""
+
 for singular in range(3, info_row + 3):
     year_data += web_driver.find_element_by_xpath(f'//*[@id="content"]/div[1]/div/div[2]/table/tbody/tr[{singular}]/td[2]').text + "       " + web_driver.find_element_by_xpath(f'//*[@id="content"]/div[1]/div/div[2]/table/tbody/tr[{singular}]/td[3]').text + "\n"
 
 ctypes.windll.user32.MessageBoxW(0, year_data, f"{year} Formula 1 Season", 64)
+
 race_number = input("Enter the race number: ")
 
 # Create file according to user input
@@ -69,6 +69,7 @@ web_driver.quit()
 outWorkbook.close()
 
 laps -= 2
+
 # Filtering the data and copying it into columns with driver as the header
 
 filepath = f"C:\\Users\\Aatmiya Silwal\\PycharmProjects\\WebScraping\\venv\\Formula One Project\\{year} Round{race_number}\\{year} Round{race_number}.xlsx"
@@ -121,4 +122,5 @@ for one_driver in driver_list:
             f"C:\\Users\\Aatmiya Silwal\\PycharmProjects\\WebScraping\\venv\\Formula One Project\\{year} Round{race_number}\\Driver Distributions\\{one_driver[0].upper()}{one_driver[1:]}.png")
         plt.close()
 
+# delete temporary test file
 os.remove(f"C:\\Users\\Aatmiya Silwal\\PycharmProjects\\WebScraping\\venv\\Formula One Project\\{year} Round{race_number}\\Test.xlsx")
