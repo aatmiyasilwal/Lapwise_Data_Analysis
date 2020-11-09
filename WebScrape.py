@@ -54,7 +54,7 @@ while valid_bool:
             table_data = web_driver.find_element_by_xpath(
                 f'//*[@id="content"]/div[1]/div/div[2]/table[2]/tbody/tr[{str(r)}]/td[{str(c)}]').text
             if c == 3:
-                lap_time = round(float(table_data[0]) * 60 + float(table_data[2:4]) + float(table_data[-3:]) / 1000, 3)
+                lap_time = round(float(table_data[0:table_data.find(':')]) * 60 + float(table_data[table_data.find(':') + 1: table_data.find('.')]) + float(table_data[-2:]) / 1000, 3)
                 outSheet.write(insert_row, insert_col, lap_time)
             elif c == 2:
                 outSheet.write(insert_row, insert_col, int(table_data))
