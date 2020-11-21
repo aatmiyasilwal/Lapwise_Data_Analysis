@@ -88,7 +88,7 @@ driver_list = [x for x in sheets["Drivers"].unique() if str(x) != 'nan']
 lap_time_df = positions_df = pd.DataFrame()
 lap_time_df["Drivers"] = positions_df["Drivers"] = list(range(1, laps + 1))
 
-plt.figure(figsize=(19, 16))
+plt.figure(figsize=(22, 16))
 
 for driver in driver_list:
     fil_xl = race_data_df[race_data_df.iloc[:, 0] == driver]["Lap Times"]
@@ -98,7 +98,7 @@ for driver in driver_list:
     position_temp_list = list(position_fil_xl)
 
     while len(position_temp_list) != laps:
-        position_temp_list.append(list(fil_xl)[-1])
+        position_temp_list.append(list(position_fil_xl)[-1])
         temp_list.append(0)
 
     positions_df[driver] = np.array(position_temp_list)
@@ -136,6 +136,8 @@ for one_driver in driver_list:
                                    fill=True, color=(tuple(np.random.random_sample(3, ))))
         distribution.set_xlabel("Time (seconds)")
         distribution.set(yticklabels=[])
+        distribution.xaxis.set_major_locator(ticker.MultipleLocator(1))
+        distribution.yaxis.set_major_locator(ticker.MultipleLocator(0.1))
         distribution.set_xlim(left=minimum_limit)
         plt.title(f"{one_driver[0].upper()}{one_driver[1:]}")
         driver_plot = distribution.get_figure()
